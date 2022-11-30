@@ -46,11 +46,12 @@ function Signin() {
 
     userEnter(payload)
       .then((res) => console.log(res))
-      .catch((err) => {
-        err.request.status == 409 ? setDuplicate(true) : null,
-          err.request.status == 500 ? setDuplicate(true) : null
-      })
       .then(() => setSubmitLoding(false))
+      .catch((err) => {
+        if (err.request.status == 409) {
+          setDuplicate(true)
+        } else if (err.request.status == 500) setDuplicate(true)
+      })
   }
 
   function onInvalid(errors: FieldErrors) {
