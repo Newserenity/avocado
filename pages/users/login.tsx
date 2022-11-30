@@ -1,5 +1,15 @@
-import { serverErrorModalstate } from '@components/atom'
+import {
+  loginFailModalstate,
+  serverErrorModalstate,
+  submittingModalstate,
+  unexpectedModalstate,
+} from '@components/atom'
+import LoginFailModal from '@components/modal/LoginFailModal'
 import ServerError from '@components/modal/ServerError'
+import SubmitModal from '@components/modal/SubmitModal'
+import UnexpectedModal from '@components/modal/UnexpectedModal'
+import { userLogin } from '@libs/client/axios/userLoginAxios'
+import timer from '@libs/client/timer'
 import { cls } from '@libs/client/utils'
 import { error } from 'console'
 import Link from 'next/link'
@@ -12,8 +22,16 @@ interface ILoginForm {
   remember: boolean
 }
 
+interface IPayload {
+  email: string
+  password: string
+}
+
 function Login() {
-  const [warning, setWarning] = useRecoilState(serverErrorModalstate)
+  const [loginFail, setLoginFail] = useRecoilState(loginFailModalstate)
+  const [submitLoding, setSubmitLoding] = useRecoilState(submittingModalstate)
+  const [serverErr, setServerErr] = useRecoilState(serverErrorModalstate)
+  const [unexpected, setUnexpected] = useRecoilState(unexpectedModalstate)
 
   const {
     register,
@@ -23,11 +41,27 @@ function Login() {
     resetField,
   } = useForm<ILoginForm>({ mode: 'onBlur' })
 
-  function onValid(data: ILoginForm) {
-    // console.log(data)
-    setWarning(true)
-    resetField('password')
-    reset()
+  function onValid(form: ILoginForm) {
+    const payload: IPayload = {
+      email: form.email,
+      password: form.password,
+    }
+    setSubmitLoding(true)
+
+    userLogin(payload)
+      // .then((res) => console.log(res))
+      .then(() => setSubmitLoding(false))
+      .then(() => timer())
+      .catch((err) => {
+        if (err.response.status == 401) {
+          setLoginFail(true)
+        } else if (err.response.status == 500) {
+          setServerErr(true)
+        } else {
+          setUnexpected(true)
+        }
+      })
+      .finally(() => setSubmitLoding(false))
   }
 
   function onInvalid(errors: FieldErrors) {
@@ -36,6 +70,9 @@ function Login() {
   return (
     <>
       <ServerError />
+      <UnexpectedModal />
+      <LoginFailModal />
+      <SubmitModal />
       <div className="py-6 px-6 ">
         <h3 className="py-16 text-4xl font-extrabold text-gray-800 ">
           こんにちは、

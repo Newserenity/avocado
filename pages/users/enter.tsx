@@ -2,17 +2,20 @@ import {
   submittingModalstate,
   duplicateModalstate,
   serverErrorModalstate,
+  unexpectedModalstate,
 } from '@components/atom'
 import DuplicateModal from '@components/modal/DuplicateModal'
 import ServerError from '@components/modal/ServerError'
 import SubmitModal from '@components/modal/SubmitModal'
-import { userEnter } from '@libs/client/userAxios'
+import timer from '@libs/client/timer'
+import { userEnter } from '@libs/client/axios/userEnterAxios'
 import { cls } from '@libs/client/utils'
 import { Console, log } from 'console'
 import Link from 'next/link'
 import React from 'react'
 import { FieldErrors, useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
+import UnexpectedModal from '@components/modal/UnexpectedModal'
 
 interface IRegisterForm {
   name: string
@@ -32,6 +35,7 @@ function Signin() {
   const [submitLoding, setSubmitLoding] = useRecoilState(submittingModalstate)
   const [duplicate, setDuplicate] = useRecoilState(duplicateModalstate)
   const [serverErr, setServerErr] = useRecoilState(serverErrorModalstate)
+  const [unexpected, setUnexpected] = useRecoilState(unexpectedModalstate)
 
   const {
     register,
@@ -50,16 +54,19 @@ function Signin() {
     setSubmitLoding(true)
 
     userEnter(payload)
-      .then((res) => console.log(res))
+      // .then((res) => console.log(res))
       .then(() => setSubmitLoding(false))
+      .then(() => timer())
       .catch((err) => {
         if (err.response.status == 409) {
           setDuplicate(true)
         } else if (err.response.status == 500) {
           setServerErr(true)
+        } else {
+          setUnexpected(true)
         }
       })
-      .then(() => setSubmitLoding(false))
+      .finally(() => setSubmitLoding(false))
   }
 
   function onInvalid(errors: FieldErrors) {
@@ -71,6 +78,7 @@ function Signin() {
       <ServerError />
       <SubmitModal />
       <DuplicateModal />
+      <UnexpectedModal />
       <div className="py-6 px-6">
         <h3 className="py-3 text-4xl font-extrabold text-gray-800 ">
           会員登録

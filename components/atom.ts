@@ -18,3 +18,13 @@ export const duplicateModalstate = atom({
   key: `duplicateModalstate`,
   default: false,
 })
+
+export const unexpectedModalstate = atom({
+  key: `unexpectedModalstate`,
+  default: false,
+})
+
+export const loginFailModalstate = atom({
+  key: `loginFailModalstate`,
+  default: false,
+})
