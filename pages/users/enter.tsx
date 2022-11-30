@@ -1,4 +1,8 @@
-import { submittingModalstate, duplicateModalstate } from '@components/atom'
+import {
+  submittingModalstate,
+  duplicateModalstate,
+  serverErrorModalstate,
+} from '@components/atom'
 import DuplicateModal from '@components/modal/DuplicateModal'
 import ServerError from '@components/modal/ServerError'
 import SubmitModal from '@components/modal/SubmitModal'
@@ -27,6 +31,7 @@ interface IPayload {
 function Signin() {
   const [submitLoding, setSubmitLoding] = useRecoilState(submittingModalstate)
   const [duplicate, setDuplicate] = useRecoilState(duplicateModalstate)
+  const [serverErr, setServerErr] = useRecoilState(serverErrorModalstate)
 
   const {
     register,
@@ -48,10 +53,13 @@ function Signin() {
       .then((res) => console.log(res))
       .then(() => setSubmitLoding(false))
       .catch((err) => {
-        if (err.request.status == 409) {
+        if (err.response.status == 409) {
           setDuplicate(true)
-        } else if (err.request.status == 500) setDuplicate(true)
+        } else if (err.response.status == 500) {
+          setServerErr(true)
+        }
       })
+      .then(() => setSubmitLoding(false))
   }
 
   function onInvalid(errors: FieldErrors) {
