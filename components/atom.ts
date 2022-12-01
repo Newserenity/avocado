@@ -28,3 +28,8 @@ export const loginFailModalstate = atom({
   key: `loginFailModalstate`,
   default: false,
 })
+
+export const ReqSuccess = atom({
+  key: `ReqSuccess`,
+  default: false,
+})

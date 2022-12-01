@@ -54,9 +54,9 @@ function LoginFailModal() {
                         <p className="text-sm text-gray-500">
                           メールアドレス又はパスワードをお確かめください
                         </p>
-                        {/* <p className="mt-3 text-sm text-yellow-500">
-                          &#40;500 ERROR&#41;
-                        </p> */}
+                        <p className="mt-3 text-sm text-yellow-500">
+                          &#40;404 ERROR&#41;
+                        </p>
                       </div>
                     </div>
                   </div>

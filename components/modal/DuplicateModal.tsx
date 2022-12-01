@@ -54,9 +54,9 @@ function DuplicateModal() {
                         <p className="text-sm text-gray-500">
                           他のメールアドレス、ニックネームでお試しください
                         </p>
-                        {/* <p className="mt-3 text-sm text-yellow-500">
-                          &#40;500 ERROR&#41;
-                        </p> */}
+                        <p className="mt-3 text-sm text-yellow-500">
+                          &#40;409 ERROR&#41;
+                        </p>
                       </div>
                     </div>
                   </div>

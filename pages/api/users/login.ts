@@ -9,19 +9,17 @@ async function enter(req: NextApiRequest, res: NextApiResponse) {
   const bcrypt = require('bcrypt')
   const saltRounds = 5
 
-  const hashedPassword = bcrypt.hashSync(password, saltRounds)
-
-  console.log({ email, password })
-
   let findUser = await client.user.findUnique({
     where: {
       email: email,
-      // password: password,
     },
   })
 
-  if (findUser) {
-    res.status(200).json({ data: { email: email } })
+  const hashedPassword = findUser?.password
+  const check = await bcrypt.compare(password, hashedPassword)
+
+  if (check) {
+    res.status(200).send({ data: { email: email } })
     console.log(findUser)
   } else {
     res.status(401).end()

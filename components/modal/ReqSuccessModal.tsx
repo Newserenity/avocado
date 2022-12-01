@@ -1,13 +1,12 @@
 import React from 'react'
 import { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import { useRecoilState } from 'recoil'
-import { unexpectedModalstate } from '@components/atom'
-import Link from 'next/link'
+import { ReqSuccess } from '@components/atom'
 
-function UnexpectedModal() {
-  const [open, setOpen] = useRecoilState(unexpectedModalstate)
+function ReqSuccessModal() {
+  const [open, setOpen] = useRecoilState(ReqSuccess)
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -38,9 +37,9 @@ function UnexpectedModal() {
               <Dialog.Panel className="relative w-full transform overflow-hidden bg-white text-left shadow-xl transition-all">
                 <div className="bg-white px-4 pt-5 pb-4 ">
                   <div className="">
-                    <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-red-100 ">
-                      <ExclamationTriangleIcon
-                        className="h-6 w-6 text-red-600"
+                    <div className="rounded-ful mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center ">
+                      <CheckCircleIcon
+                        className="h-10 w-10 text-lime-500"
                         aria-hidden="true"
                       />
                     </div>
@@ -49,14 +48,12 @@ function UnexpectedModal() {
                         as="h3"
                         className="text-lg font-semibold text-gray-900"
                       >
-                        正しくないリクエスト
+                        リクエスト成功
                       </Dialog.Title>
-                      <div className="mt-2">
-                        <p className="text-sm text-gray-500">
-                          しばらく時間をおいて再度お試しください。
-                        </p>
+                      <div className="mt-5">
+                        <p className="text-sm text-gray-500">ReqSuccess</p>
                         <p className="mt-3 text-sm text-yellow-500">
-                          &#40;400 ERROR&#41;
+                          &#40;200 OK&#41;
                         </p>
                       </div>
                     </div>
@@ -70,15 +67,6 @@ function UnexpectedModal() {
                   >
                     OK
                   </button>
-                  <Link href="/">
-                    <button
-                      type="button"
-                      className="mt-3 inline-flex w-full justify-center rounded-md bg-rose-500 px-4 py-2 text-base font-medium text-white shadow-sm"
-                      onClick={() => setOpen(false)}
-                    >
-                      ホームに戻る
-                    </button>
-                  </Link>
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -89,4 +77,4 @@ function UnexpectedModal() {
   )
 }
 
-export default UnexpectedModal
+export default ReqSuccessModal

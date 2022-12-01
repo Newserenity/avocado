@@ -1,16 +1,20 @@
 import {
   loginFailModalstate,
+  ReqSuccess,
   serverErrorModalstate,
   submittingModalstate,
   unexpectedModalstate,
 } from '@components/atom'
 import LoginFailModal from '@components/modal/LoginFailModal'
+import ReqSuccessModal from '@components/modal/ReqSuccessModal'
 import ServerError from '@components/modal/ServerError'
 import SubmitModal from '@components/modal/SubmitModal'
 import UnexpectedModal from '@components/modal/UnexpectedModal'
+import { testApi } from '@libs/client/axios/testApi'
 import { userLogin } from '@libs/client/axios/userLoginAxios'
 import timer from '@libs/client/timer'
 import { cls } from '@libs/client/utils'
+import axios from 'axios'
 import { error } from 'console'
 import Link from 'next/link'
 import { FieldErrors, useForm } from 'react-hook-form'
@@ -32,6 +36,7 @@ function Login() {
   const [submitLoding, setSubmitLoding] = useRecoilState(submittingModalstate)
   const [serverErr, setServerErr] = useRecoilState(serverErrorModalstate)
   const [unexpected, setUnexpected] = useRecoilState(unexpectedModalstate)
+  const [success, setSuccess] = useRecoilState(ReqSuccess)
 
   const {
     register,
@@ -49,9 +54,10 @@ function Login() {
     setSubmitLoding(true)
 
     userLogin(payload)
-      // .then((res) => console.log(res))
-      .then(() => setSubmitLoding(false))
+      .then((res) => console.log(res))
       .then(() => timer())
+      .then(() => setSubmitLoding(false))
+      .then((response) => console.log(response))
       .catch((err) => {
         if (err.response.status == 401) {
           setLoginFail(true)
@@ -73,6 +79,7 @@ function Login() {
       <UnexpectedModal />
       <LoginFailModal />
       <SubmitModal />
+      <ReqSuccessModal />
       <div className="py-6 px-6 ">
         <h3 className="py-16 text-4xl font-extrabold text-gray-800 ">
           こんにちは、

@@ -3,6 +3,7 @@ import {
   duplicateModalstate,
   serverErrorModalstate,
   unexpectedModalstate,
+  ReqSuccess,
 } from '@components/atom'
 import DuplicateModal from '@components/modal/DuplicateModal'
 import ServerError from '@components/modal/ServerError'
@@ -16,6 +17,7 @@ import React from 'react'
 import { FieldErrors, useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
 import UnexpectedModal from '@components/modal/UnexpectedModal'
+import ReqSuccessModal from '@components/modal/ReqSuccessModal'
 
 interface IRegisterForm {
   name: string
@@ -36,6 +38,7 @@ function Signin() {
   const [duplicate, setDuplicate] = useRecoilState(duplicateModalstate)
   const [serverErr, setServerErr] = useRecoilState(serverErrorModalstate)
   const [unexpected, setUnexpected] = useRecoilState(unexpectedModalstate)
+  const [success, setSuccess] = useRecoilState(ReqSuccess)
 
   const {
     register,
@@ -54,16 +57,17 @@ function Signin() {
     setSubmitLoding(true)
 
     userEnter(payload)
-      // .then((res) => console.log(res))
-      .then(() => setSubmitLoding(false))
       .then(() => timer())
+      .then(() => setSubmitLoding(false))
       .catch((err) => {
         if (err.response.status == 409) {
           setDuplicate(true)
         } else if (err.response.status == 500) {
           setServerErr(true)
-        } else {
+        } else if (err.response.status == 400) {
           setUnexpected(true)
+        } else {
+          setSuccess(true)
         }
       })
       .finally(() => setSubmitLoding(false))
@@ -79,6 +83,7 @@ function Signin() {
       <SubmitModal />
       <DuplicateModal />
       <UnexpectedModal />
+      <ReqSuccessModal />
       <div className="py-6 px-6">
         <h3 className="py-3 text-4xl font-extrabold text-gray-800 ">
           会員登録
