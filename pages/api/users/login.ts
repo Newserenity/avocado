@@ -25,7 +25,7 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
     },
   })
 
-  const hashedPassword = findUser?.password
+  let hashedPassword = findUser ? findUser.password : 'undefined'
   const check = await bcrypt.compare(password, hashedPassword)
 
   if (check && findUser) {
@@ -38,10 +38,9 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
   } else {
     res.status(401).end()
   }
-  console.log(req.session)
 }
 
 export default withIronSessionApiRoute(withHandler('POST', login), {
   cookieName: 'loginSession',
-  password: process.env.IRON_SESSION_PASSWORD!,
+  password: 'qpvntr$cycsofi91c$webbxo88b*cmzlamfkiwoc512z9mhi@cxoqitgs^09',
 })
