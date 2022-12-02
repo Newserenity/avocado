@@ -1,10 +1,8 @@
 export default function hashing(myPlaintextPassword: string) {
   const bcrypt = require('bcrypt')
-  const saltRounds = 10
+  let saltRounds = parseInt(process.env.SALT_ROUNDS!)
 
-  return bcrypt.genSalt(saltRounds, function () {
-    bcrypt.hash(myPlaintextPassword, function (err: any, hash: string) {
-      return hash
-    })
-  })
+  const hashedPassword = bcrypt.hashSync(myPlaintextPassword, saltRounds)
+
+  return hashedPassword
 }

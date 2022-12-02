@@ -1,15 +1,13 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import client from '@libs/server/client'
+import hashing from '@libs/server/hash'
 import withHandler from '@libs/server/withhandler'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 async function enter(req: NextApiRequest, res: NextApiResponse) {
   const { email, password, name } = req.body
 
-  const bcrypt = require('bcrypt')
-  const saltRounds = 5
-
-  const hashedPassword = bcrypt.hashSync(password, saltRounds)
+  const hashedPassword = hashing(password)
 
   let emailUnique = await client.user.findUnique({
     where: {

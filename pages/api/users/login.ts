@@ -18,7 +18,6 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
   const { email, password } = req.body
 
   const bcrypt = require('bcrypt')
-  const saltRounds = 5
 
   const findUser = await client.user.findUnique({
     where: {

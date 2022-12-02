@@ -10,4 +10,4 @@ async function test(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
   res.status(200).json({ message: 'Hello from Next.js!' })
 }
 
-export default withHandler('POST', test)
+export default withHandler('GET', test)
