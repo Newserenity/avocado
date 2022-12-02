@@ -30,5 +30,5 @@ async function myInfo(req: NextApiRequest, res: NextApiResponse) {
 
 export default withIronSessionApiRoute(withHandler('GET', myInfo), {
   cookieName: 'loginSession',
-  password: 'qpvntr$cycsofi91c$webbxo88b*cmzlamfkiwoc512z9mhi@cxoqitgs^09',
+  password: process.env.IRON_SESSION_PASSWORD!,
 })
