@@ -53,8 +53,12 @@ function Login() {
     }
     setSubmitLoding(true)
 
+    let user = ''
+
     userLogin(payload)
-      .then((res) => console.log(res))
+      .then((res) => {
+        res.data?.ok == true ? setSuccess(true) : null
+      })
       .then(() => timer())
       .then(() => setSubmitLoding(false))
       .then((response) => console.log(response))
@@ -68,6 +72,8 @@ function Login() {
         }
       })
       .finally(() => setSubmitLoding(false))
+
+    console.log(user)
   }
 
   function onInvalid(errors: FieldErrors) {

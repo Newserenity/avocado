@@ -54,9 +54,9 @@ function ServerError() {
                         <p className="text-sm text-gray-500">
                           しばらく時間をおいて再度お試しください。サービス提供元のサーバーが一時的に接続できない状態になってる可能性があります。
                         </p>
-                        {/* <p className="mt-3 text-sm text-yellow-500">
+                        <p className="mt-3 text-sm text-yellow-500">
                           &#40;500 ERROR&#41;
-                        </p> */}
+                        </p>
                       </div>
                     </div>
                   </div>

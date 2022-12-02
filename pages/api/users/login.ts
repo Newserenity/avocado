@@ -2,14 +2,25 @@
 import client from '@libs/server/client'
 import withHandler from '@libs/server/withhandler'
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { withIronSessionApiRoute } from 'iron-session/next'
+import internal from 'stream'
 
-async function enter(req: NextApiRequest, res: NextApiResponse) {
+declare module 'iron-session' {
+  interface IronSessionData {
+    user?: {
+      id: number
+      email: String
+    }
+  }
+}
+
+async function login(req: NextApiRequest, res: NextApiResponse) {
   const { email, password } = req.body
 
   const bcrypt = require('bcrypt')
   const saltRounds = 5
 
-  let findUser = await client.user.findUnique({
+  const findUser = await client.user.findUnique({
     where: {
       email: email,
     },
@@ -18,12 +29,21 @@ async function enter(req: NextApiRequest, res: NextApiResponse) {
   const hashedPassword = findUser?.password
   const check = await bcrypt.compare(password, hashedPassword)
 
-  if (check) {
-    res.status(200).send({ data: { email: email } })
-    console.log(findUser)
+  if (check && findUser) {
+    req.session.user = {
+      id: findUser.id,
+      email: findUser.email,
+    }
+    await req.session.save()
+    res.status(200).json({ ok: true })
   } else {
     res.status(401).end()
   }
+  console.log(req.session)
 }
 
-export default withHandler('POST', enter)
+export default withIronSessionApiRoute(withHandler('POST', login), {
+  cookieName: 'loginSession',
+  password:
+    'fbjkwqebf2i3bcibqwsdpengvjkvbjkkldsfnbklslgrt9bw349fbwenc9#&*fnweof',
+})

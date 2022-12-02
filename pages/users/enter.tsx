@@ -57,6 +57,9 @@ function Signin() {
     setSubmitLoding(true)
 
     userEnter(payload)
+      .then((res) => {
+        res.data?.ok == true ? setSuccess(true) : null
+      })
       .then(() => timer())
       .then(() => setSubmitLoding(false))
       .catch((err) => {
