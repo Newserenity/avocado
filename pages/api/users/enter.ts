@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import client from '@libs/server/client'
-import hashing from '@libs/server/hash'
+import hashing from '@libs/server/hashing'
 import withHandler from '@libs/server/withhandler'
 import type { NextApiRequest, NextApiResponse } from 'next'
 
