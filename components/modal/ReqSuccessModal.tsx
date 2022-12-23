@@ -4,9 +4,15 @@ import { Dialog, Transition } from '@headlessui/react'
 import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import { useRecoilState } from 'recoil'
 import { ReqSuccess } from '@components/atom'
+import router from 'next/router'
 
 function ReqSuccessModal() {
   const [open, setOpen] = useRecoilState(ReqSuccess)
+
+  function done() {
+    router.push('/')
+    setOpen(false)
+  }
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -63,7 +69,7 @@ function ReqSuccessModal() {
                   <button
                     type="button"
                     className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm"
-                    onClick={() => setOpen(false)}
+                    onClick={() => done()}
                   >
                     OK
                   </button>
