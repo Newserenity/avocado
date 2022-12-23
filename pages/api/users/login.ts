@@ -6,15 +6,6 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 import internal from 'stream'
 import { withIronSession } from '@libs/server/withSession'
 
-declare module 'iron-session' {
-  interface IronSessionData {
-    user?: {
-      id: number
-      email: String
-    }
-  }
-}
-
 async function login(req: NextApiRequest, res: NextApiResponse) {
   const { email, password } = req.body
 

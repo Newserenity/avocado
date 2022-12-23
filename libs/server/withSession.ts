@@ -1,5 +1,14 @@
 import { withIronSessionApiRoute } from 'iron-session/next'
 
+declare module 'iron-session' {
+  interface IronSessionData {
+    user?: {
+      id: number
+      email: String
+    }
+  }
+}
+
 const cookieOption = {
   cookieName: 'loginSession',
   password: process.env.IRON_SESSION_PASSWORD!,
