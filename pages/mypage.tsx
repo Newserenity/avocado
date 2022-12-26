@@ -1,4 +1,3 @@
-import ItemCard from '@components/card/ItemCard'
 import ItemCard3Cols from '@components/card/ItemCard3Cols'
 import MenuTitle from '@components/MenuTitle'
 import ToolBar from '@components/ToolBar'

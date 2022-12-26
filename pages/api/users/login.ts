@@ -2,8 +2,6 @@
 import client from '@libs/server/client'
 import withHandler from '@libs/server/withhandler'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { withIronSessionApiRoute } from 'iron-session/next'
-import internal from 'stream'
 import { withIronSession } from '@libs/server/withSession'
 
 async function login(req: NextApiRequest, res: NextApiResponse) {

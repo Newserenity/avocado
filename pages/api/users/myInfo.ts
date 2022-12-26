@@ -2,7 +2,6 @@
 import client from '@libs/server/client'
 import withHandler from '@libs/server/withhandler'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { withIronSessionApiRoute } from 'iron-session/next'
 import { withIronSession } from '@libs/server/withSession'
 
 async function myInfo(req: NextApiRequest, res: NextApiResponse) {
