@@ -10,6 +10,7 @@ async function me(req: NextApiRequest, res: NextApiResponse) {
   })
 
   res.status(200).json({
+    ok: true,
     certified: true,
     encrypted: false,
     integrityVerificationToken: null,
