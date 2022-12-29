@@ -4,7 +4,7 @@ import withHandler from '@libs/server/withhandler'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { withIronSession } from '@libs/server/withSession'
 
-async function myInfo(req: NextApiRequest, res: NextApiResponse) {
+async function me(req: NextApiRequest, res: NextApiResponse) {
   const profile = await client.user.findUnique({
     where: { id: req.session.user?.id },
   })
@@ -17,4 +17,6 @@ async function myInfo(req: NextApiRequest, res: NextApiResponse) {
   })
 }
 
-export default withIronSession(withHandler('GET', myInfo))
+export default withIronSession(
+  withHandler({ method: 'GET', handler: me, isPrivate: true }),
+)

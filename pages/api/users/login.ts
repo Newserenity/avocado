@@ -34,4 +34,6 @@ async function login(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default withIronSession(withHandler('POST', login))
+export default withIronSession(
+  withHandler({ method: 'POST', handler: login, isPrivate: false }),
+)

@@ -1,15 +1,25 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
-export default function withHandler(
-  method: 'GET' | 'POST' | 'DELETE' | 'PUT',
-  fn: (req: NextApiRequest, res: NextApiResponse) => void,
-) {
+interface ConfigType {
+  method: 'GET' | 'POST' | 'DELETE' | 'PUT'
+  handler: (req: NextApiRequest, res: NextApiResponse) => void
+  isPrivate: boolean
+}
+
+export default function withHandler({
+  method,
+  handler,
+  isPrivate,
+}: ConfigType) {
   return async function (req: NextApiRequest, res: NextApiResponse) {
     if (req.method !== method) {
       res.status(405).end()
     }
+    if (isPrivate && !req.session.user) {
+      return res.status(405).json({ ok: false, error: 'no authorization' })
+    }
     try {
-      await fn(req, res)
+      await handler(req, res)
     } catch (error) {
       console.log(error)
       return res.status(500).json({ error })
