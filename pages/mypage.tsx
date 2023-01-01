@@ -1,6 +1,7 @@
 import ItemCard3Cols from '@components/card/ItemCard3Cols'
 import MenuTitle from '@components/MenuTitle'
 import ToolBar from '@components/ToolBar'
+import useUser from '@libs/client/useUser'
 import Link from 'next/link'
 import React from 'react'
 
@@ -114,6 +115,9 @@ const itemReserved = [
 ]
 
 function mypage() {
+  const user = useUser()
+  console.log(user)
+
   return (
     <>
       <MenuTitle title="マイページ" />
@@ -122,7 +126,7 @@ function mypage() {
           <div className="flex flex-row">
             <div className="h-14 w-14 rounded-full bg-slate-500"></div>
             <div className="mt-1 pl-4">
-              <p className="text-md font-semibold">One Kiss</p>
+              <p className="text-md font-semibold">{user.user?.name}</p>
               <div className="flex flex-row items-center space-x-2">
                 <div className="h-2 w-2 rounded-full bg-green-600"></div>
                 <p className="text-sm text-slate-400">オンライン</p>
