@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useMemo } from 'react'
 import { set, useForm } from 'react-hook-form'
 import BackButton from './button/BackButton'
+
 interface ISearchForm {
   keyword: string
 }
@@ -11,13 +12,15 @@ function SearchBar() {
   const route = useRouter()
   const keyword = route.query.keyword
 
-  const { register, handleSubmit, setValue } = useForm<ISearchForm>()
+  const { register, handleSubmit, setValue } = useForm<ISearchForm>({
+    values: { keyword: route.query.keyword as string },
+  })
 
   function onValid(data: ISearchForm) {
     route.push(`/search/${data.keyword}`)
   }
 
-  keyword ? setValue('keyword', `${keyword}`) : null
+  // keyword ? setValue('keyword', `${keyword}`) : null
 
   return (
     <>
