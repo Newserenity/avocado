@@ -114,10 +114,8 @@ const itemReserved = [
   },
 ]
 
-function mypage() {
+export default function Mypage() {
   const user = useUser()
-  console.log(user)
-
   return (
     <>
       <MenuTitle title="マイページ" />
@@ -201,5 +199,3 @@ function mypage() {
     </>
   )
 }
-
-export default mypage

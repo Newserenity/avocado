@@ -32,7 +32,7 @@ interface IPayload {
   image?: string[]
 }
 
-function upload() {
+function Upload() {
   const [submitLoding, setSubmitLoding] = useRecoilState(submittingModalstate)
   const [success, setSuccess] = useRecoilState(ReqSuccess)
   const [unexpected, setUnexpected] = useRecoilState(unexpectedModalstate)
@@ -162,4 +162,4 @@ function upload() {
   )
 }
 
-export default upload
+export default Upload
