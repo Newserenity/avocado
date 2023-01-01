@@ -6,8 +6,15 @@ type ResponseData = {
   message: string
 }
 
-async function test(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+async function product(
+  req: NextApiRequest,
+  res: NextApiResponse<ResponseData>,
+) {
   res.status(200).json({ message: 'Hello from Next.js!' })
 }
 
-export default withHandler({ method: 'GET', handler: test, isPrivate: false })
+export default withHandler({
+  method: 'POST',
+  handler: product,
+  isPrivate: true,
+})

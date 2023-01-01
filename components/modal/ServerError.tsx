@@ -52,7 +52,7 @@ function ServerError() {
                       </Dialog.Title>
                       <div className="mt-2">
                         <p className="text-sm text-gray-500">
-                          しばらく時間をおいて再度お試しください。サービス提供元のサーバーが一時的に接続できない状態になってる可能性があります。
+                          しばらく時間をおいて再度お試しください。サービス提供元のサーバーが一時的に接続できない状態になっている可能性があります。
                         </p>
                         <p className="mt-3 text-sm text-yellow-500">
                           &#40;500 ERROR&#41;

@@ -17,6 +17,7 @@ import { FieldErrors, useForm } from 'react-hook-form'
 import { useRecoilState } from 'recoil'
 import UnexpectedModal from '@components/modal/UnexpectedModal'
 import ReqSuccessModal from '@components/modal/ReqSuccessModal'
+import useUser from '@libs/client/useUser'
 
 interface IRegisterForm {
   name: string

@@ -9,7 +9,7 @@ import router from 'next/router'
 function ReqSuccessModal() {
   const [open, setOpen] = useRecoilState(ReqSuccess)
 
-  function done() {
+  const handleClick = () => {
     router.push('/')
     setOpen(false)
   }
@@ -66,13 +66,13 @@ function ReqSuccessModal() {
                   </div>
                 </div>
                 <div className="bg-gray-50 px-4 py-3 ">
-                  <button
-                    type="button"
+                  <a
                     className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm"
-                    onClick={() => done()}
+                    onClick={handleClick}
+                    href={'/'}
                   >
                     OK
-                  </button>
+                  </a>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

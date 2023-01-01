@@ -1,9 +1,22 @@
 import BackButton from '@components/button/BackButton'
 import MenuTitle from '@components/MenuTitle'
 import ToolBar from '@components/ToolBar'
+import {
+  ReqSuccess,
+  serverErrorModalstate,
+  submittingModalstate,
+  unexpectedModalstate,
+} from '@components/atom'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { FieldErrors, useForm } from 'react-hook-form'
+import { useRecoilState } from 'recoil'
+import SubmitModal from '@components/modal/SubmitModal'
+import { productUpload } from '@libs/client/axios/productUploadAxios'
+import timer from '@libs/client/timer'
+import ServerError from '@components/modal/ServerError'
+import UnexpectedModal from '@components/modal/UnexpectedModal'
+import ReqSuccessModal from '@components/modal/ReqSuccessModal'
 
 interface UploadProduct {
   title: string
@@ -12,18 +25,60 @@ interface UploadProduct {
   image?: string[]
 }
 
+interface IPayload {
+  title: string
+  price: number
+  description: string
+  image?: string[]
+}
+
 function upload() {
+  const [submitLoding, setSubmitLoding] = useRecoilState(submittingModalstate)
+  const [success, setSuccess] = useRecoilState(ReqSuccess)
+  const [unexpected, setUnexpected] = useRecoilState(unexpectedModalstate)
+  const [serverErr, setServerErr] = useRecoilState(serverErrorModalstate)
+
   const { register, handleSubmit } = useForm<UploadProduct>()
-  const onValid = (data: UploadProduct) => {
-    // handleSubmit()
+
+  const onValid = (form: UploadProduct) => {
+    const payload: IPayload = {
+      title: form.title,
+      price: form.price,
+      description: form.description,
+    }
+    setSubmitLoding(true)
+    productUpload(payload)
+      .then((res) => {
+        res.data?.ok == true ? setSuccess(true) : null
+      })
+      .then(() => timer())
+      .then(() => setSubmitLoding(false))
+      .catch((err) => {
+        if (err.response.status == 500) {
+          setServerErr(true)
+        } else if (err.response.status == 400) {
+          setUnexpected(true)
+        } else {
+          setSuccess(true)
+        }
+      })
+      .finally(() => setSubmitLoding(false))
+  }
+
+  function onInvalid(errors: FieldErrors) {
+    console.log(errors)
   }
   return (
     <>
+      <SubmitModal />
+      <ServerError />
+      <UnexpectedModal />
+      <ReqSuccessModal />
       <div className="space-y-2 py-3">
         <div className="px-5 pt-3">
           <BackButton />
         </div>
-        <form>
+        <form onSubmit={handleSubmit(onValid, onInvalid)}>
           <div className="space-y-5 px-4 pt-5">
             <div>
               <h1 className="text-2xl font-bold text-slate-800">出品</h1>
@@ -103,20 +158,6 @@ function upload() {
           </div>
         </form>
       </div>
-      {/* <div className="fixed bottom-0 flex w-full justify-between bg-white text-xs text-gray-700">
-        <Link
-          href={'../'}
-          className="text-md m-3 w-1/2 rounded-md border border-lime-600 p-3 text-center font-semibold text-lime-600"
-        >
-          キャンセル
-        </Link>
-        <button
-          type="submit"
-          className="text-md my-3 mr-3 w-1/2 rounded-md bg-lime-600 p-3 font-semibold text-white"
-        >
-          投稿する
-        </button>
-      </div> */}
     </>
   )
 }
