@@ -8,7 +8,7 @@ export default function useUser() {
   const router = useRouter()
 
   useEffect(() => {
-    if (!data.ok) {
+    if (data === undefined) {
       router.replace('/users/login')
     }
   }, [data, router])
