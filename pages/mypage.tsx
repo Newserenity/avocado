@@ -1,7 +1,7 @@
 import ItemCard3Cols from '@components/card/ItemCard3Cols'
 import MenuTitle from '@components/MenuTitle'
 import ToolBar from '@components/ToolBar'
-import useUser from '@libs/client/useUser'
+import useUser from '@libs/client/swr/useUserSwr'
 import Link from 'next/link'
 import React from 'react'
 

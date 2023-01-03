@@ -2,7 +2,7 @@ import ItemCard from '@components/card/ItemCard'
 import MenuTitle from '@components/MenuTitle'
 import ToolBar from '@components/ToolBar'
 import Category from '@components/Category'
-import useUser from '@libs/client/useUser'
+import useUser from '@libs/client/swr/useUserSwr'
 
 const itemRecomends = [
   {

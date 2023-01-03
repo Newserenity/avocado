@@ -17,12 +17,18 @@ import timer from '@libs/client/timer'
 import ServerError from '@components/modal/ServerError'
 import UnexpectedModal from '@components/modal/UnexpectedModal'
 import ReqSuccessModal from '@components/modal/ReqSuccessModal'
+import { Product } from '@prisma/client'
 
 interface UploadProduct {
   title: string
   price: number
   description: string
   image?: string[]
+}
+
+interface ResUploadProduct {
+  ok: string
+  product: Product
 }
 
 interface IPayload {
@@ -34,7 +40,6 @@ interface IPayload {
 
 function Upload() {
   const [submitLoding, setSubmitLoding] = useRecoilState(submittingModalstate)
-  const [success, setSuccess] = useRecoilState(ReqSuccess)
   const [unexpected, setUnexpected] = useRecoilState(unexpectedModalstate)
   const [serverErr, setServerErr] = useRecoilState(serverErrorModalstate)
 
@@ -49,7 +54,9 @@ function Upload() {
     setSubmitLoding(true)
     productUpload(payload)
       .then((res) => {
-        res.data?.ok == true ? setSuccess(true) : null
+        if (res.data?.ok) {
+          console.log('upload success')
+        }
       })
       .then(() => timer())
       .then(() => setSubmitLoding(false))
@@ -58,8 +65,6 @@ function Upload() {
           setServerErr(true)
         } else if (err.response.status == 400) {
           setUnexpected(true)
-        } else {
-          setSuccess(true)
         }
       })
       .finally(() => setSubmitLoding(false))
@@ -73,7 +78,6 @@ function Upload() {
       <SubmitModal />
       <ServerError />
       <UnexpectedModal />
-      <ReqSuccessModal />
       <div className="space-y-2 py-3">
         <div className="px-5 pt-3">
           <BackButton />
