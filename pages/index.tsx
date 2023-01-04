@@ -1,8 +1,6 @@
-import ItemCard from '@components/card/ItemCard'
-import MenuTitle from '@components/MenuTitle'
-import ToolBar from '@components/ToolBar'
-import Category from '@components/Category'
 import useUser from '@libs/client/swr/useUserSwr'
+import LoginFail from '@components/modal/loginFail'
+import ServerError from '@components/modal/serverError'
 
 const itemRecomends = [
   {
@@ -72,38 +70,10 @@ const itemRecomends = [
 ]
 
 export default function Home() {
-  const user = useUser()
-  console.log(user)
-
   return (
     <>
-      <MenuTitle title="🥑 AVOCADO" />
-      <div className="flex flex-col space-y-2 px-4 py-20">
-        <div>
-          <div className="h-40 w-full rounded-xl bg-slate-400">
-            <p className="pt-3 pl-5 text-slate-600">広告</p>
-          </div>
-        </div>
-        <Category />
-        <div className=" text-xl font-bold">
-          <h1>出品さればかりの</h1>
-          <h1>オススメ商品</h1>
-        </div>
-        <div className="grid grid-cols-2 gap-3">
-          {itemRecomends.map((result) => (
-            <ItemCard
-              key={result.itemId}
-              itemId={result.itemId}
-              itemImageSrc={result?.itemImageSrc}
-              itemPrice={result.itemPrice}
-              itemTitle={result.itemTitle}
-              itemLocation={result?.itemLocation}
-              itemUploadAt={result?.itemUploadAt}
-            />
-          ))}
-        </div>
-      </div>
-      <ToolBar />
+      <LoginFail />
+      {/* <ServerError /> */}
     </>
   )
 }
