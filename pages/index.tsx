@@ -1,6 +1,7 @@
 import useUser from '@libs/client/swr/useUserSwr'
 import LoginFail from '@components/modal/loginFail'
 import ServerError from '@components/modal/serverError'
+import SwitchToggle from '@components/input/switchToggle'
 
 const itemRecomends = [
   {
@@ -74,6 +75,7 @@ export default function Home() {
     <>
       <LoginFail />
       {/* <ServerError /> */}
+      <SwitchToggle />
     </>
   )
 }
