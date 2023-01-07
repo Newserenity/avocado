@@ -1,20 +1,22 @@
+import { serverErrorModalstate } from '@components/atom'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
+import { useRecoilState } from 'recoil'
 
 export default function ServerError() {
-  let [isOpen, setIsOpen] = useState(true)
+  const [open, setOpen] = useRecoilState(serverErrorModalstate)
 
-  function closeModal() {
-    setIsOpen(false)
+  function closeModal(): void {
+    setOpen(false)
   }
 
   function openModal() {
-    setIsOpen(true)
+    setOpen(true)
   }
 
   return (
     <>
-      <div className="fixed inset-0 flex flex-col items-center justify-center">
+      {/* <div className="fixed inset-0 flex flex-col items-center justify-center">
         <button
           type="button"
           onClick={openModal}
@@ -22,9 +24,9 @@ export default function ServerError() {
         >
           Open dialog
         </button>
-      </div>
+      </div> */}
 
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -73,13 +75,11 @@ export default function ServerError() {
                     as="h3"
                     className="mt-5 px-6 text-lg font-medium leading-6 text-gray-900"
                   >
-                    서버에 접속할 수 없습니다
+                    サーバーへ接続ができません
                   </Dialog.Title>
                   <div className="mt-3 px-6">
                     <p className="text-left text-sm text-gray-500">
-                      잠시후 다시 시도해주세요. 현재 인터넷 접속중이 아니거나,
-                      아보카도플렛폼 서버 점검중입니다. 자세한 사항은
-                      홈페이지에서 확인하시기 바랍니다.
+                      しばらく時間をおいて再度お試しください。サービス提供元のサーバーが一時的に接続できない状態になっている可能性があります。
                     </p>
                   </div>
 
@@ -89,7 +89,7 @@ export default function ServerError() {
                       className="inline-flex justify-center rounded-md  bg-lime-200 px-10 py-2 text-sm font-medium text-lime-900"
                       onClick={closeModal}
                     >
-                      확인
+                      確認
                     </button>
                   </div>
                 </Dialog.Panel>

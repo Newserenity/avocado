@@ -27,6 +27,7 @@ model User {
   updatedAt       DateTime        @updatedAt
   status          Status          @default(OK)
   role            Role            @default(USER)
+  adAgree         Boolean         @default(false)
   product         Product[]
   ChatRoom        ChatRoom[]
   ChatMessage     ChatMessage[]

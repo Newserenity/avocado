@@ -2,80 +2,74 @@ import useUser from '@libs/client/swr/useUserSwr'
 import LoginFail from '@components/modal/loginFail'
 import ServerError from '@components/modal/serverError'
 import SwitchToggle from '@components/input/switchToggle'
+import BottomBar from '@components/bottomBar'
+import Product from '@components/product'
+import ProductsGroup from '@components/productsGroup'
+import Image from 'next/image'
+import Category from '@components/Category'
 
 const itemRecomends = [
   {
     itemId: 89387032,
     itemImageSrc: undefined,
-    itemPrice: '30,000',
-    itemTitle: 'LG ノートパソコン SSS',
+    itemPrice: 3000000,
+    itemKind: 'Panasonic',
     itemLocation: '東京都渋谷区',
     itemUploadAt: '1時間前',
   },
   {
     itemId: 550287792,
     itemImageSrc: undefined,
-    itemPrice: '23,9000',
-    itemTitle: 'Airpods Pro 第２世代',
+    itemPrice: 500000,
+    itemKind: 'Airpods Pro 2',
     itemLocation: '東京都足立区',
     itemUploadAt: '56分前',
   },
   {
     itemId: 13287532,
     itemImageSrc: undefined,
-    itemPrice: '8,000',
-    itemTitle: 'Google Home',
+    itemPrice: 303000,
+    itemKind: 'Google Home',
     itemLocation: '東京都品川区',
     itemUploadAt: '11分前',
   },
   {
     itemId: 29287732,
     itemImageSrc: undefined,
-    itemPrice: '150,000',
-    itemTitle: 'Macbook pro 2022 M1 Pro',
+    itemPrice: 380000,
+    itemKind: 'MB Pro 22 M1 MAX',
     itemLocation: '東京都板橋区',
     itemUploadAt: '1日前',
   },
   {
     itemId: 89387132,
     itemImageSrc: undefined,
-    itemPrice: '30,000',
-    itemTitle: 'LG ノートパソコン SSS',
+    itemPrice: 9800,
+    itemKind: 'DELL',
     itemLocation: '東京都渋谷区',
     itemUploadAt: '1時間前',
   },
   {
     itemId: 560287792,
     itemImageSrc: undefined,
-    itemPrice: '23,9000',
-    itemTitle: 'Airpods Pro 第２世代',
+    itemPrice: 1500000,
+    itemKind: 'Airpods Pro 2',
     itemLocation: '東京都足立区',
     itemUploadAt: '56分前',
-  },
-  {
-    itemId: 13287832,
-    itemImageSrc: undefined,
-    itemPrice: '8,000',
-    itemTitle: 'Google Home',
-    itemLocation: '東京都品川区',
-    itemUploadAt: '11分前',
-  },
-  {
-    itemId: 29287792,
-    itemImageSrc: undefined,
-    itemPrice: '150,000',
-    itemTitle: 'Macbook pro 2022 M1 Pro',
-    itemLocation: '東京都板橋区',
-    itemUploadAt: '1日前',
   },
 ]
 
 export default function Home() {
   return (
     <>
-      <LoginFail />
-      {/* <ServerError /> */}
-      <SwitchToggle />
+      <div className="h-52 bg-gray-400">
+        <Image src="https://picsum.photos/seed/picsum/200/300" alt={''} />
+      </div>
+      <Category />
+      <ProductsGroup productlist={itemRecomends} />
+      <ProductsGroup productlist={itemRecomends} />
+      <ProductsGroup productlist={itemRecomends} />
+      <BottomBar />
     </>
   )
 }

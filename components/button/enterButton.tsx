@@ -4,7 +4,7 @@ export default function EnterButton() {
   return (
     <>
       <button
-        type="button"
+        type="submit"
         className="rounded-2xl bg-lime-600 p-4 text-sm font-medium text-white"
       >
         <svg
