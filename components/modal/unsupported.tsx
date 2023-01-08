@@ -1,13 +1,16 @@
-import { serverErrorModalstate } from '@components/atom'
+import { unsupportedModalstate } from '@components/atom'
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { useRouter } from 'next/router'
+import { Fragment } from 'react'
 import { useRecoilState } from 'recoil'
 
-export default function ServerError() {
-  const [open, setOpen] = useRecoilState(serverErrorModalstate)
+export default function Unsupported() {
+  const [open, setOpen] = useRecoilState(unsupportedModalstate)
+  const router = useRouter()
 
   function closeModal() {
     setOpen(false)
+    // router.reload()
   }
 
   function openModal() {
@@ -51,7 +54,7 @@ export default function ServerError() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white text-center align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white text-center align-middle shadow-xl transition-all">
                   <div className="pt-6">
                     <svg
                       className="m-auto h-6 w-6 text-black"
@@ -62,24 +65,22 @@ export default function ServerError() {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                     >
-                      <line x1="1" y1="1" x2="23" y2="23" />{' '}
-                      <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55" />
-                      <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39" />
-                      <path d="M10.71 5.05A16 16 0 0 1 22.58 9" />
-                      <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88" />
-                      <path d="M8.53 16.11a6 6 0 0 1 6.95 0" />
-                      <line x1="12" y1="20" x2="12.01" y2="20" />
+                      <path stroke="none" d="M0 0h24v24H0z" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+                      <line x1="19" y1="7" x2="19" y2="10" />
+                      <line x1="19" y1="14" x2="19" y2="14.01" />
                     </svg>
                   </div>
                   <Dialog.Title
                     as="h3"
                     className="mt-5 px-6 text-lg font-medium leading-6 text-gray-900"
                   >
-                    サーバーへ接続ができません
+                    準備中の機能です。
                   </Dialog.Title>
                   <div className="mt-3 px-6">
                     <p className="text-left text-sm text-gray-500">
-                      しばらく時間をおいて再度お試しください。サービス提供元のサーバーが一時的に接続できない状態になっている可能性があります。
+                      現在はお使いになれません。次のアップデートをお待ちください。
                     </p>
                   </div>
 

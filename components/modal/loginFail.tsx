@@ -1,20 +1,22 @@
+import { loginErrorModalstate } from '@components/atom'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
+import { useRecoilState } from 'recoil'
 
 export default function LoginFail() {
-  let [isOpen, setIsOpen] = useState(true)
+  const [open, setOpen] = useRecoilState(loginErrorModalstate)
 
   function closeModal() {
-    setIsOpen(false)
+    setOpen(false)
   }
 
   function openModal() {
-    setIsOpen(true)
+    setOpen(true)
   }
 
   return (
     <>
-      <div className="fixed inset-0 flex flex-col items-center justify-center">
+      {/* <div className="fixed inset-0 flex flex-col items-center justify-center">
         <button
           type="button"
           onClick={openModal}
@@ -22,9 +24,9 @@ export default function LoginFail() {
         >
           Open dialog
         </button>
-      </div>
+      </div> */}
 
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
@@ -49,7 +51,7 @@ export default function LoginFail() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white text-center align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white text-center align-middle shadow-xl transition-all">
                   <div className="pt-6">
                     <svg
                       className="m-auto h-6 w-6 text-black"
