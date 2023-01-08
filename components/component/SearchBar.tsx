@@ -2,7 +2,7 @@ import { Console } from 'console'
 import { useRouter } from 'next/router'
 import React, { useEffect, useMemo } from 'react'
 import { set, useForm } from 'react-hook-form'
-import BackButton from './button/BackButton'
+import BackButton from '../button/BackButton'
 
 interface ISearchForm {
   keyword: string

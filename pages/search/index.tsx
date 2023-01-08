@@ -1,6 +1,7 @@
-import SearchBar from '@components/SearchBar'
-import BottomBar from '@components/bottomBar'
+import SearchBar from '@components/component/SearchBar'
+import BottomBar from '@components/component/bottomBar'
 import SearchHistory from '@components/input/SearchHistory'
+import Legal from '@components/component/legal'
 
 import React, { useState } from 'react'
 

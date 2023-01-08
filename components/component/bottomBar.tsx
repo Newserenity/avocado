@@ -6,7 +6,7 @@ import React from 'react'
 function BottomBar() {
   const router = useRouter()
   return (
-    <nav className="fixed bottom-0 flex w-full justify-between rounded-t-2xl border-t bg-white px-9 py-3 text-xs text-gray-700">
+    <nav className="fixed bottom-0 flex w-full justify-between rounded-t-2xl border-t bg-white/60 px-9 py-3 text-xs text-gray-700 backdrop-blur-lg">
       <Link
         href="/"
         className={cls(

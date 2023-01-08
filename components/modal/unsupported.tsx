@@ -10,7 +10,7 @@ export default function Unsupported() {
 
   function closeModal() {
     setOpen(false)
-    // router.reload()
+    router.reload()
   }
 
   function openModal() {

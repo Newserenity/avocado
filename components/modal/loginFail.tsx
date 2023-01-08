@@ -51,7 +51,7 @@ export default function LoginFail() {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white text-center align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl  bg-white text-center align-middle shadow-xl transition-all">
                   <div className="pt-6">
                     <svg
                       className="m-auto h-6 w-6 text-black"
